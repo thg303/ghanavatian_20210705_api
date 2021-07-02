@@ -33,6 +33,9 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 5.0'
   gem 'rubocop-rspec', '~> 2.4', require: false
+
+  # A fixtures replacement with a straightforward definition syntax
+  gem 'factory_bot_rails', '~> 6.2'
 end
 
 group :development do
@@ -45,6 +48,9 @@ group :development do
   gem 'rubocop', '~> 1.18'
   gem 'rubocop-performance', '~> 1.11'
   gem 'rubocop-rails', '~> 2.11'
+
+  # Add a comment summarizing the current schema to the top of the models
+  gem 'annotate', '~> 3.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

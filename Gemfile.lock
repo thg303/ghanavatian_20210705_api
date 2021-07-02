@@ -60,6 +60,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     awesome_print (1.9.2)
     bootsnap (1.7.5)
@@ -71,6 +74,11 @@ GEM
     crass (1.0.6)
     diff-lcs (1.4.4)
     erubi (1.10.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     ffi (1.15.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -198,9 +206,11 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
+  annotate (~> 3.1)
   awesome_print (~> 1.9)
   bootsnap (>= 1.4.4)
   byebug
+  factory_bot_rails (~> 6.2)
   listen (~> 3.3)
   pg (~> 1.1)
   pry (~> 0.14.1)

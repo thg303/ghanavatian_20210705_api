@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Database
+update `config/database.yml` to properly connect to your postgresql server.
+
+run `rails db:setup` to apply migration and add required categories to the database

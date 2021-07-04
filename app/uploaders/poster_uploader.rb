@@ -26,7 +26,7 @@ class PosterUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process scale: [256, 256]
+  process resize_to_fit: [256, 256]
   #
   # def scale(width, height)
   #   # do something

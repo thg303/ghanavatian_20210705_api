@@ -2,7 +2,7 @@ version: '3'
 
 networks:
 # the api gateway / reverse proxy network
-#  kong_net:
+#  kong_knet:
 #    external: true
   casvid_net:
     driver: bridge
@@ -14,7 +14,7 @@ services:
     build:
       context: .
       args:
-        SECRET_KEY_BASE: chaneMeToSomeThingSecure
+        SECRET_KEY_BASE: changeMe2SomeThingSecure
     container_name: casvid_api
     depends_on:
       - casvid_db
@@ -25,25 +25,31 @@ services:
 #       - "80:3000"
     networks:
       - casvid_net
-# the api gateway / reverse proxy network
+# add api-gateway network if necessary
 #      - kong_knet
+    volumes:
+      - ./uploaded_files:/var/www/casvid/public/uploads
     environment:
-      - CASVID_DATABASE_PASSWORD=stRA32_x14n-W
-      - TZ=Europe/Vienna
+      - DB_HOST=casvid_db
+      - DB_NAME=casvid_production
+      - DB_USER=casvid
+      - DB_PASS=changeDatabasePassword
+      - TZ=Europe/Berlin
+      # set it to false for a real-world application and use a decent web server
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_LOG_TO_STDOUT=true
-      - SECRET_KEY_BASE=chaneMeToSomeThingSecure
+      - SECRET_KEY_BASE=changeMe2SomeThingSecure
   casvid_db:
     restart: always
     container_name: casvid_db
-    image: sameersbn/postgresql:12-20200524
+    image: postgres
     volumes:
-      - ./db:/var/lib/postgresql:Z
+      - ./postgres_db:/var/lib/postgresql:Z
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
       - casvid_net
     environment:
       - POSTGRES_USER=casvid
-      - POSTGRES_PASSWORD=stRA32_x14n-W
+      - POSTGRES_PASSWORD=changeDatabasePassword
       - POSTGRES_DB=casvid_production

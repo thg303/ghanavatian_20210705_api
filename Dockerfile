@@ -2,20 +2,15 @@ FROM ruby:2.7.2-slim
 MAINTAINER Ali Ghanavatian "ghanavatian.ali@gmail.com"
 
 ENV LANG C.UTF-8
-RUN apt-get update -qq && apt-get install -y build-essential curl default-mysql-client default-libmysqlclient-dev git
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs && apt-get clean && rm -rf /tmp/* /var/tmp/*
-RUN npm install -g yarn
+RUN apt-get update -qq && apt-get install -y build-essential curl libpq-dev git postgresql-client mime-support ruby-mini-magick
 
 EXPOSE 3000
 
 # Define where our application will live inside the image
-ENV RAILS_ROOT /var/www/meisterlabs-blog
+ENV RAILS_ROOT /var/www/casvid
 ENV RAILS_ENV production
 
 # Site domain
-ARG WEB_URL=https://mblog.aqlinux.ir
-ENV SITE_URL=${WEB_URL}
 ARG SEC_KEY='change0me0in0docker0compose'
 ENV SECRET_KEY_BASE=${SEC_KEY}
 
@@ -48,9 +43,9 @@ RUN bundle
 # Copy the Rails application into place
 COPY . .
 
-RUN rails assets:precompile
+VOLUME [ '/var/www/casvid/public/uploads' ]
 
 # Define the script we want run once the container boots
 # Use the "exec" form of CMD so our script shuts down gracefully on SIGTERM (i.e. `docker stop`)
 #CMD [ "config/containers/app_cmd.sh" ]
-CMD puma -C config/puma.rb
+CMD [ "sh", "startup.sh"]

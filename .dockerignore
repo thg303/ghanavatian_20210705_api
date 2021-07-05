@@ -1,4 +1,5 @@
-# ignores mysql container volume
-/mysql/**
+# ignores postgres container volume
+/postgres_db/**
+/uploaded_files/**
 Dockerfile
 docker-compose.yml

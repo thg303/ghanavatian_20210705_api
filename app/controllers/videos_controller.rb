@@ -5,20 +5,19 @@ class VideosController < ApplicationController
 
   # GET /videos
   def index
-    @videos = Video.all
+    @videos = Video.includes(:category).order(created_at: :desc).all
 
-    render json: @videos
+    render 'videos/index.json.jbuilder'
   end
 
   # GET /videos/1
   def show
-    render json: @video
+    render 'videos/show.json.jbuilder'
   end
 
   # POST /videos
   def create
     @video = Video.new(video_params)
-    # binding.pry
 
     if @video.save
       render json: @video, status: :created, location: @video

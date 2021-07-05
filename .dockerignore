@@ -1,0 +1,4 @@
+# ignores mysql container volume
+/mysql/**
+Dockerfile
+docker-compose.yml

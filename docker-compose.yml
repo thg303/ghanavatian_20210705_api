@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+# the api gateway / reverse proxy network
+#  kong_net:
+#    external: true
+  casvid_net:
+    driver: bridge
+
+services:
+  casvid_api:
+    restart: always
+    image: casvid_api
+    build:
+      context: .
+      args:
+        SECRET_KEY_BASE: chaneMeToSomeThingSecure
+    container_name: casvid_api
+    depends_on:
+      - casvid_db
+    links:
+      - casvid_db
+# binds rails port to the public web server port
+#    ports:
+#       - "80:3000"
+    networks:
+      - casvid_net
+# the api gateway / reverse proxy network
+#      - kong_knet
+    environment:
+      - CASVID_DATABASE_PASSWORD=stRA32_x14n-W
+      - TZ=Europe/Vienna
+      - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_LOG_TO_STDOUT=true
+      - SECRET_KEY_BASE=chaneMeToSomeThingSecure
+  casvid_db:
+    restart: always
+    container_name: casvid_db
+    image: sameersbn/postgresql:12-20200524
+    volumes:
+      - ./db:/var/lib/postgresql:Z
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - casvid_net
+    environment:
+      - POSTGRES_USER=casvid
+      - POSTGRES_PASSWORD=stRA32_x14n-W
+      - POSTGRES_DB=casvid_production

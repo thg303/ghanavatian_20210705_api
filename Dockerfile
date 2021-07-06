@@ -2,7 +2,8 @@ FROM ruby:2.7.2-slim
 MAINTAINER Ali Ghanavatian "ghanavatian.ali@gmail.com"
 
 ENV LANG C.UTF-8
-RUN apt-get update -qq && apt-get install -y build-essential curl libpq-dev git postgresql-client mime-support ruby-mini-magick
+RUN apt-get update -qq && apt-get install -y build-essential curl libpq-dev git postgresql-client \
+   mime-support ruby-mini-magick ffmpegthumbnailer
 
 EXPOSE 3000
 

@@ -15,7 +15,6 @@
 class Video < ApplicationRecord
   belongs_to :category
   mount_uploader :clip, ClipUploader
-  mount_uploader :poster, PosterUploader
 
   validates :title, presence: true
   validates :category_id, presence: true

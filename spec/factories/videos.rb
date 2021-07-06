@@ -16,7 +16,6 @@ FactoryBot.define do
   factory :video do
     title { 'my title' }
     clip { Rack::Test::UploadedFile.new(Rails.root.join / 'spec' / 'fixtures' / 'test.mov', 'video/quicktime') }
-    poster { Rack::Test::UploadedFile.new(Rails.root.join / 'spec' / 'fixtures' / 'avatar.png', 'image/png') }
 
     category
   end

@@ -23,8 +23,7 @@ RSpec.describe '/videos', type: :request do
     {
       title: 'Untitled 1',
       category_id: category.id,
-      clip: Rack::Test::UploadedFile.new(Rails.root.join / 'spec' / 'fixtures' / 'test.mov', 'video/quicktime'),
-      poster: Rack::Test::UploadedFile.new(Rails.root.join / 'spec' / 'fixtures' / 'avatar.png', 'image/png')
+      clip: Rack::Test::UploadedFile.new(Rails.root.join / 'spec' / 'fixtures' / 'test.mov', 'video/quicktime')
     }
   end
 

@@ -4,6 +4,8 @@ class ClipUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
+  include CarrierWave::Video
+  include CarrierWave::Video::Thumbnailer
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -17,6 +19,38 @@ class ClipUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  version :poster do
+    process thumbnail: [{ format: 'png', quality: 10, size: 256, square: true, strip: false, logger: Rails.logger }]
+
+    def full_filename(for_file)
+      png_name for_file, version_name
+    end
+  end
+
+  def png_name(for_file, version_name)
+    %(#{version_name}_#{for_file.chomp(File.extname(for_file))}.png)
+  end
+
+  version :thumb do
+    process thumbnail: [{ format: 'png', quality: 10, size: 64, square: true, strip: false, logger: Rails.logger }]
+
+    def full_filename(for_file)
+      png_name for_file, version_name
+    end
+  end
+
+  version :tiny do
+    process thumbnail: [{ format: 'png', quality: 10, size: 128, square: true, strip: false, logger: Rails.logger }]
+
+    def full_filename(for_file)
+      png_name for_file, version_name
+    end
+  end
+
+  # def png_name for_file, version_name, format
+  #   %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.#{format}}
+  # end
+  ##################################
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
   #   # For Rails 3.1+ asset pipeline compatibility:

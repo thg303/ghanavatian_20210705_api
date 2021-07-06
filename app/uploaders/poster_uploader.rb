@@ -35,6 +35,8 @@ class PosterUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :thumb do
     process resize_to_fit: [64, 64]
+  end
+  version :tiny do
     process resize_to_fit: [128, 128]
   end
 
